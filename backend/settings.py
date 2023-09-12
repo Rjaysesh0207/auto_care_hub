@@ -15,30 +15,8 @@ import os
 import sys
 import dj_database_url
 
-from dotenv import load_dotenv, find_dotenv
-load_dotenv(find_dotenv())
 
-if os.getenv('ENV') == 'development':
-  DB_NAME = os.getenv('DB_NAME_DEV')
-  DB = {
-    'ENGINE': 'django.db.backends.postgresql',
-    'NAME': DB_NAME,
-  }
-
-  DEBUG = True
-
-  CORS_ORIGIN_WHITELIST = [ 
-    'http://localhost:3000',
-    'http://127.0.0.1:3000',
-  ]
-else:
-  # If in production dj_database_url locates database on Heroku setup
-  DB = dj_database_url.config()
-  DEBUG = False
-  CORS_ORIGIN_WHITELIST = [
-    # url for production app
-    os.getenv('CLIENT_ORIGIN')
-  ]
+PRODUCTION = 'PRODUCTION' in os.environ
 
 
 
@@ -50,9 +28,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('SECRET')
+SECRET_KEY = 're94qkxft_#0mq@1j-#t1d5i9^uvh@7y6z+(i0ku#q66ma*uar'
+if PRODUCTION:
+    SECRET_KEY = os.environ["SECRET_KEY"]
 
 # SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = False
 
 
 ALLOWED_HOSTS = ['*',]
@@ -110,10 +91,17 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
 DATABASES = {
-    'default': DB
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'hub',
+    }
 }
+
+if PRODUCTION:
+    db_from_env = dj_database_url.config(conn_max_age=600)
+    DATABASES['default'].update(db_from_env)
+
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
