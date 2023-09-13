@@ -38,9 +38,8 @@ DEBUG = False
 
 ALLOWED_HOSTS = ['*',]
 
-CORS_ALLOW_ALL_ORIGINS = False
 
-CORS_ALLOWED_ORIGINS = [
+CORS_ORIGIN_WHITELIST = [
     'https://auto-care-hub-d3469d6a9ef9.herokuapp.com',
     # Add other allowed origins if needed
 ]
