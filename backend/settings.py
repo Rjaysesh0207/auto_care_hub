@@ -40,7 +40,7 @@ ALLOWED_HOSTS = ['*',]
 
 
 CORS_ORIGIN_WHITELIST = [
-    'https://auto-care-hub-d3469d6a9ef9.herokuapp.com/',
+    'https://auto-care-hub-d3469d6a9ef9.herokuapp.com',
     # Add other allowed origins if needed
 ]
 
