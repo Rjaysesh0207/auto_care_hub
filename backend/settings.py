@@ -28,7 +28,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 're94qkxft_#0mq@1j-#t1d5i9^uvh@7y6z+(i0ku#q66ma*uar'
+SECRET_KEY = 'cp8pxf+@r5obja0pvaare6e@grv1bzn+xytlo+2uwy'
 if PRODUCTION:
     SECRET_KEY = os.environ["SECRET_KEY"]
 
@@ -38,6 +38,12 @@ DEBUG = False
 
 ALLOWED_HOSTS = ['*',]
 
+CORS_ALLOW_ALL_ORIGINS = False
+
+CORS_ALLOWED_ORIGINS = [
+    'https://auto-care-hub-d3469d6a9ef9.herokuapp.com',
+    # Add other allowed origins if needed
+]
 
 # Application definition
 
